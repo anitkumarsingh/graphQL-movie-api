@@ -22,7 +22,7 @@ const moviesType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name:'RootQuery',
   fields:()=>({
-   movies:{
+   movie:{
      type:moviesType,
      args:{id:{type:GraphQLString}},
      resolve(parent,args){
