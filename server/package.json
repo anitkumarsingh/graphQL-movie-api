@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon app",
-    "start":"NODE_ENV=production node app"
+    "start": "NODE_ENV=production node app"
   },
   "author": "Anit Kumar",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^12.0.3",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
