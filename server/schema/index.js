@@ -1,7 +1,12 @@
 const graphql = require('graphql');
 const _ = require('lodash');
 
-const {GraphQLObjectType,GraphQLString,GraphQLSchema} = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLSchema,
+  GraphQLID
+} = graphql;
 
 const movies = [
   {name:'Joker',genre:'Drama',id:'1'},
@@ -13,7 +18,7 @@ const movies = [
 const moviesType = new GraphQLObjectType({
   name:'movies',
   fields:()=>({
-    id:{type:GraphQLString},
+    id:{type:GraphQLID},
     name:{type:GraphQLString},
     genre:{type:GraphQLString}
   })
@@ -24,7 +29,7 @@ const RootQuery = new GraphQLObjectType({
   fields:()=>({
    movie:{
      type:moviesType,
-     args:{id:{type:GraphQLString}},
+     args:{id:{type:GraphQLID}},
      resolve(parent,args){
        // get data from database
        return _.find(movies,{id:args.id})
