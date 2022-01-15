@@ -5,7 +5,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLSchema,
-  GraphQLID
+  GraphQLID,
+  GraphQLInt
 } = graphql;
 
 const movies = [
@@ -15,6 +16,12 @@ const movies = [
   {name:'Joke4',genre:'Drama 4',id:'4'},
 ]
 
+const directors =[
+  {name:'John Doe 1',age:43,id:'1'},
+  {name:'John Doe 2',age:23,id:'2'},
+  {name:'John Doe 3',age:44,id:'3'},
+  {name:'John Doe 4',age:77,id:'4'}
+]
 const moviesType = new GraphQLObjectType({
   name:'movies',
   fields:()=>({
@@ -24,6 +31,14 @@ const moviesType = new GraphQLObjectType({
   })
 })
 
+const directorType = new GraphQLObjectType({
+  name:'director',
+  fields:()=>({
+    id:{type:GraphQLID},
+    name:{type:GraphQLString},
+    age:{type:GraphQLInt}
+  })
+})
 const RootQuery = new GraphQLObjectType({
   name:'RootQuery',
   fields:()=>({
@@ -33,6 +48,13 @@ const RootQuery = new GraphQLObjectType({
      resolve(parent,args){
        // get data from database
        return _.find(movies,{id:args.id})
+     }
+   },
+   director:{
+     type:directorType,
+     args:{id:{type:GraphQLID}},
+     resolve(parent,args){
+       return _.find(directors,{id:args.id})
      }
    }
   })
