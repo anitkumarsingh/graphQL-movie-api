@@ -99,7 +99,7 @@ const Mutation = new GraphQLObjectType({
       args:{
         name:{type:GraphQLString},
         genre:{type:GraphQLString},
-        directorId:{type:GraphQLInt}
+        directorId:{type:GraphQLString}
       },
       resolve(parent,args){
         let movie = new Movie({
