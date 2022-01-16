@@ -13,19 +13,7 @@ const {
   GraphQLList
 } = graphql;
 
-const movies = [
-  {name:'Joker',genre:'Drama',id:'1',directorId:'1'},
-  {name:'Joker2',genre:'La la land',id:'2',directorId:'2'},
-  {name:'Joker3',genre:'Drama 3',id:'3',directorId:'1'},
-  {name:'Joke4',genre:'Drama 4',id:'4',directorId:'3'},
-]
 
-const directors =[
-  {name:'John Doe 1',age:43,id:'1'},
-  {name:'John Doe 2',age:23,id:'2'},
-  {name:'John Doe 3',age:44,id:'3'},
-  {name:'John Doe 4',age:77,id:'4'}
-]
 const moviesType = new GraphQLObjectType({
   name:'movies',
   fields:()=>({
@@ -89,6 +77,26 @@ const RootQuery = new GraphQLObjectType({
   })
 })
 
+const Mutation = new GraphQLObjectType({
+  name:'Mutation',
+  fields:{
+    addDirector:{
+    type:directorType,
+    args:{
+        name:{type:GraphQLString},
+        age:{type:GraphQLInt}
+        },
+    resolve(parent,args){
+       let director = new Director({
+         name:args.name,
+         age:args.age
+       })
+       return director.save();
+     }
+    }
+  }
+})
 module.exports = new GraphQLSchema({
-    query:RootQuery
+    query:RootQuery,
+    mutation:Mutation
   })
