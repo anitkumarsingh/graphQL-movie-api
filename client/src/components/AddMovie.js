@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { GET_DIRECTOR_QUERY } from '../queries';
+import { useQuery,useMutation } from '@apollo/client';
+import { GET_DIRECTOR_QUERY,ADD_MOVIE_MUTATION } from '../queries';
 
 export const AddMovie = () => {
 	const [name, setName] = useState('');
 	const [genre, setGenre] = useState('');
 	const [directorId, setDirectorId] = useState('');
-
+  const [addMovie] = useMutation(ADD_MOVIE_MUTATION,{name,genre,directorId})
 	const { loading, data, error } = useQuery(GET_DIRECTOR_QUERY);
 	const renderDirectors = () => {
 		if (loading) return <option disabled>Loading...</option>;
@@ -21,7 +21,8 @@ export const AddMovie = () => {
 	};
 	const submitHandler = (e) => {
 		e.preventDefault();
-    console.log(name,genre,directorId)
+    console.log(name,genre,directorId);
+    addMovie(name,genre,directorId);
 	};
 	return (
 		<form id='add-movie' onSubmit={submitHandler}>
