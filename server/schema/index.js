@@ -6,7 +6,8 @@ const {
   GraphQLString,
   GraphQLSchema,
   GraphQLID,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLList
 } = graphql;
 
 const movies = [
@@ -42,7 +43,13 @@ const directorType = new GraphQLObjectType({
   fields:()=>({
     id:{type:GraphQLID},
     name:{type:GraphQLString},
-    age:{type:GraphQLInt}
+    age:{type:GraphQLInt},
+    movies:{
+      type:new GraphQLList(moviesType),
+      resolve(parent,args){
+        return _.filter(movies,{directorId:parent.id})
+      }
+    }
   })
 })
 const RootQuery = new GraphQLObjectType({
