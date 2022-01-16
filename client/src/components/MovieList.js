@@ -1,7 +1,7 @@
 import React from 'react';
 import {gql,useQuery} from '@apollo/client';
 
-const MOVIES_QUERY = gql`
+const GET_MOVIES_QUERY = gql`
 {
   movies{
     name
@@ -11,7 +11,7 @@ const MOVIES_QUERY = gql`
 }
 `
 export const MovieList = () => {
-const {loading,error,data} = useQuery(MOVIES_QUERY);
+const {loading,data} = useQuery(GET_MOVIES_QUERY);
 if(loading) return <p>Loading...</p>
 console.log(data)
 const renderMovies = ()=> {
