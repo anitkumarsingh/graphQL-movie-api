@@ -1,4 +1,7 @@
 const graphql = require('graphql');
+const Movie = require('../models/movie');
+const Director = require('../models/director');
+
 const _ = require('lodash');
 
 const {
@@ -32,7 +35,8 @@ const moviesType = new GraphQLObjectType({
     director:{
       type:directorType,
       resolve(parent,args){
-        return _.find(directors,{id:parent.directorId})
+        let director = Director.findById(parent.directorId)
+        return director;
       }
     }
   })
@@ -47,7 +51,8 @@ const directorType = new GraphQLObjectType({
     movies:{
       type:new GraphQLList(moviesType),
       resolve(parent,args){
-        return _.filter(movies,{directorId:parent.id})
+        let movie = Movie.find({directorId:parent.id})
+        return movie;
       }
     }
   })
@@ -59,27 +64,26 @@ const RootQuery = new GraphQLObjectType({
      type:moviesType,
      args:{id:{type:GraphQLID}},
      resolve(parent,args){
-       // get data from database
-       return _.find(movies,{id:args.id})
+       return Movie.findById(args.id)
      }
    },
    director:{
      type:directorType,
      args:{id:{type:GraphQLID}},
      resolve(parent,args){
-       return _.find(directors,{id:args.id})
+       return Director.findById(args.id)
      }
    },
    movies:{
      type:new GraphQLList(moviesType),
      resolve(){
-       return movies;
+       return Movie.find({});
      }
    },
    directors:{
      type:new GraphQLList(directorType),
      resolve(){
-       return directors;
+       return Director.find({});
      }
    }
   })
