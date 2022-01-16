@@ -19,8 +19,8 @@ export const GET_MOVIES_QUERY = gql`
 `;
 
 export const ADD_MOVIE_MUTATION = gql`
-	mutation {
-		addMovie(name: "", genre: "", directorId: "") {
+	mutation($name:String!,$genre:String!,$directorId:String!) {
+		addMovie(name: $name, genre: $genre, directorId: $directorId) {
 			name
 			id
 		}
