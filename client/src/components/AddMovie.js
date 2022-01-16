@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery,useMutation } from '@apollo/client';
-import { GET_DIRECTOR_QUERY,ADD_MOVIE_MUTATION } from '../queries';
+import { GET_DIRECTOR_QUERY,ADD_MOVIE_MUTATION, GET_MOVIES_QUERY } from '../queries';
 
 export const AddMovie = () => {
 	const [name, setName] = useState('');
@@ -26,7 +26,8 @@ export const AddMovie = () => {
         name,
         genre,
         directorId
-      }
+      },
+      refetchQueries:[{query:GET_MOVIES_QUERY}]
     });
 	};
 	return (
