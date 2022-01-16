@@ -1,8 +1,11 @@
-
+import { MovieList } from "../components/MovieList";
 
 const App = () =>{
   return (
-   <div>GraphQl</div>
+   <div>
+     <h1>Watch List</h1>
+     <MovieList/>
+   </div>
   );
 }
 
