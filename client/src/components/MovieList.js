@@ -4,16 +4,16 @@ import { GET_MOVIES_QUERY } from '../queries';
 import { MovieDetails } from './MovieDetails';
 
 export const MovieList = () => {
-const [clickedMovieId, setClickedMovieId] = useState('');
+const [clickedMovieId, setClickedMovieId] = useState(null);
 const {loading,data} = useQuery(GET_MOVIES_QUERY);
 if(loading) return <p>Loading...</p>
 
-console.log(clickedMovieId)
+console.log(data);
 const renderMovies = ()=> {
   return(
     data.movies.map(m=>{
       return(
-        <li key={m.id} onClick={()=>setClickedMovieId(m.id)}>{m.name}</li>
+        <li key={m.id} onClick={(e)=>setClickedMovieId(m.id)}>{m.name}</li>
       )
     })
   )
@@ -23,7 +23,7 @@ const renderMovies = ()=> {
       <ul>
         {renderMovies()}
       </ul>
-      <MovieDetails id={clickedMovieId}/>
+      {clickedMovieId ? (<MovieDetails id={clickedMovieId}/>):null}
     </>
   )
 }
